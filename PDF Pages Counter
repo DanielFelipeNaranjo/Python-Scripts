@@ -1,0 +1,21 @@
+####################################################
+# Count Pages in Multiple PDF Files | Daniel Naranjo 
+####################################################
+#Install PyPDF2 to read PDF Files: pip install PyPDF2
+####################################################
+import os                           
+from PyPDF2 import PdfFileReader    
+filesprocessed = 0
+totalpages = 0
+filespath = input("Service Guides Path (eg. C:/User/Dan/): ")
+for root, dirs, files in os.walk(filespath):
+    for filename in files:
+        filename = str(filespath+filename)
+        with open(filename, "rb") as pdf_file:
+            pdf_reader = PdfFileReader(pdf_file)
+            print(filename)
+            print(f"The total number of pages in this pdf document is {pdf_reader.numPages}")
+            totalpages = totalpages + pdf_reader.numPages
+            filesprocessed = filesprocessed +1
+            pdf_file.close()
+    print(str(totalpages) + " Pages for "+ str(filesprocessed) + " files processed ")
